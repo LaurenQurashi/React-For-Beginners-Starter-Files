@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { database } from "firebase";
 
 const Header = props => (
     <header className="top">
