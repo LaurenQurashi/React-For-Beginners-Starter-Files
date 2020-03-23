@@ -9,6 +9,9 @@ export function rando(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// Export default takes all methods or functions in a file and makes them all available during import. 
+// Exporting them individually allows you to grab just the one. 
+
 export function slugify(text) {
   return text
     .toString()
