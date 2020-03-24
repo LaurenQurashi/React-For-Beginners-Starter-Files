@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Order from "./Order";
 import Inventory from "./Inventory";
+import sampleFishes from "../sample-fishes";
 
 class App extends React.Component {
     state = {
@@ -17,6 +18,11 @@ class App extends React.Component {
         // Set the new fishes object to state.
         this.setState({fishes});
     };
+    // The code below is loading a bunch of sample fishes into our state. The call above and below do the same thing, however if your variables you wanna map
+    // are called the same thing, you can use short hand coding (above) to call it. If not, you can use the long hand coding (below).
+    loadSampleFishes = () => {
+        this.setState({fishes: sampleFishes})
+    }
     render() {
         return (
             <div className="catch-of-the-day">
@@ -24,7 +30,7 @@ class App extends React.Component {
                     <Header tagline="Fresh Fish Market" />
                 </div>
                 <Order />
-                <Inventory addFish={this.addFish}/>
+                <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
                 {/* In order to get the add fish method to the AddFishForm component, we pass it down in the inventory props.  */}
             </div>
         )
