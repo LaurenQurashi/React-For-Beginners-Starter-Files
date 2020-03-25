@@ -44,7 +44,7 @@ class App extends React.Component {
                         ))}
                     </ul>
                 </div>
-                <Order />
+                <Order fishes={this.state.fishes} order={this.state.order} />
                 <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
                 {/* In order to get the add fish method to the AddFishForm component, we pass it down in the inventory props.  */}
             </div>
