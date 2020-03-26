@@ -33,7 +33,6 @@ class App extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log(this.state.order);
         localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order))
     }
 
@@ -50,6 +49,17 @@ class App extends React.Component {
         // Set the new fishes object to state.
         this.setState({fishes});
     };
+
+    updateFish = (key, updatedFish) => {
+        // take a copy of the current state
+        const fishes = {...this.state.fishes};
+        // update that state
+        fishes[key] = updatedFish;
+        // set that to state
+        this.setState({fishes})
+
+    };
+
     // The code below is loading a bunch of sample fishes into our state. The call above and below do the same thing, however if your variables you wanna map
     // are called the same thing, you can use short hand coding (above) to call it. If not, you can use the long hand coding (below).
     loadSampleFishes = () => {
@@ -76,7 +86,12 @@ class App extends React.Component {
                     </ul>
                 </div>
                 <Order fishes={this.state.fishes} order={this.state.order} />
-                <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
+                <Inventory 
+                    addFish={this.addFish} 
+                    updateFish={this.updateFish}
+                    loadSampleFishes={this.loadSampleFishes}
+                    fishes={this.state.fishes}
+                />
                 {/* In order to get the add fish method to the AddFishForm component, we pass it down in the inventory props.  */}
             </div>
         )
