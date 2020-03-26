@@ -18,11 +18,23 @@ class App extends React.Component {
         // The /fishes is because in firebase we are connecting to the db for the store, and then accessing the fishes object under it.
         // the sync state also requires an object with some options. 
         const {params} = this.props.match
+        // First we have to reinstate the local storage. 
+        const localStorageRef = localStorage.getItem(params.storeId);
+        if (localStorageRef) {
+            this.setState({ order: JSON.parse(localStorageRef)})
+            // This sets the state of the local storage ref if there is one. JSON.parse turns it back into an object after we turned it to a string below.
+            // Mounting triggers an update hence why the local storage is in string form. 
+        }
         this.ref = base.syncState(`${params.storeId}/fishes`, {
             context: this,
             state: 'fishes'
         });
 
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.order);
+        localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order))
     }
 
     componentWillUnmount() {
