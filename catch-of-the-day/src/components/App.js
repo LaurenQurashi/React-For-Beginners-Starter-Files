@@ -56,9 +56,19 @@ class App extends React.Component {
         // update that state
         fishes[key] = updatedFish;
         // set that to state
-        this.setState({fishes})
+        this.setState({fishes});
 
     };
+
+    deleteFish = (key) => {
+        // take a copy of the current state
+        const fishes = {...this.state.fishes};
+        // update the state - you need to set the fish to null in order for firebase to delete it. 
+        fishes[key] = null;
+        // set the state
+        this.setState({fishes})
+
+    }
 
     // The code below is loading a bunch of sample fishes into our state. The call above and below do the same thing, however if your variables you wanna map
     // are called the same thing, you can use short hand coding (above) to call it. If not, you can use the long hand coding (below).
@@ -74,6 +84,13 @@ class App extends React.Component {
         // Set the state. 
         this.setState({order});
     };
+
+    deleteFromOrder = (key) => {
+        const order = {...this.state.order};
+        delete order[key];
+        this.setState({order});
+    };
+
     render() {
         return (
             <div className="catch-of-the-day">
@@ -85,10 +102,15 @@ class App extends React.Component {
                         ))}
                     </ul>
                 </div>
-                <Order fishes={this.state.fishes} order={this.state.order} />
+                <Order 
+                    fishes={this.state.fishes} 
+                    order={this.state.order} 
+                    deleteFromOrder={this.deleteFromOrder}
+                />
                 <Inventory 
                     addFish={this.addFish} 
                     updateFish={this.updateFish}
+                    deleteFish={this.deleteFish}
                     loadSampleFishes={this.loadSampleFishes}
                     fishes={this.state.fishes}
                 />

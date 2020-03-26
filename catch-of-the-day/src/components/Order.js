@@ -1,11 +1,11 @@
 import React from "react";
 import { formatPrice } from "../helpers";
 
-class Order extends React.Component {
+class Order extends React.Component {  
     renderOrder = key =>{
         const fish = this.props.fishes[key];
         const count = this.props.order[key];
-        const isAvailable = fish.status === 'available';
+        const isAvailable = fish && fish.status === 'available';
         // for a split second while we check local storage then go to the db if nothing exists, there are no fish available while it fetches the db data. 
         // This stops anything from rendering until the fish are loaded. 
         if(!fish) return null;
@@ -17,6 +17,7 @@ class Order extends React.Component {
             <li key={key}>
                 {count} lbs {fish.name}
                 {formatPrice(count * fish.price)}
+                <button onClick={() => this.props.deleteFromOrder(key)}>X</button>
            </li>
         );
     };
