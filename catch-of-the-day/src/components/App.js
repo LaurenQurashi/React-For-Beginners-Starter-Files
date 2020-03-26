@@ -1,4 +1,5 @@
 import React from "react";
+import base from "../base";
 import Header from "./Header";
 import Order from "./Order";
 import Inventory from "./Inventory";
@@ -10,6 +11,24 @@ class App extends React.Component {
         fishes: {},
         order: {}
     };
+
+    componentDidMount() {
+        // this ref is different to the input refs, it's refering to the piece of data in the database.
+        // The props.match... is accessing the storeId from the router. this is because the router is the parent component for App. 
+        // The /fishes is because in firebase we are connecting to the db for the store, and then accessing the fishes object under it.
+        // the sync state also requires an object with some options. 
+        const {params} = this.props.match
+        this.ref = base.syncState(`${params.storeId}/fishes`, {
+            context: this,
+            state: 'fishes'
+        });
+
+    }
+
+    componentWillUnmount() {
+        base.removeBinding(this.ref);
+    }
+    // This makes sure that you don't have any memory leaks, and once the component has unmounted, you stop accessing that database. 
 
     addFish = (fish) => {
         // Take a copy of the fishes state as we don't want to directly manipulate it. 
