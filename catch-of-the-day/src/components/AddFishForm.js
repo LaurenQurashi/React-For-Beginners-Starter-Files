@@ -1,12 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class AddFishForm extends React.Component {
+    
     nameRef = React.createRef();
     priceRef = React.createRef();
     statusRef = React.createRef();
     descRef = React.createRef();
     imageRef = React.createRef();
     // these references let you grab the values from the inputs. 
+
+    static propTypes = {
+        addFish: PropTypes.func,
+    };
 
     createFish = (event) => {
         event.preventDefault();

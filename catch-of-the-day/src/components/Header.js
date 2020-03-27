@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+
 
 const Header = props => (
     <header className="top">
@@ -16,6 +18,16 @@ const Header = props => (
             </header> 
 
 );
+
+Header.propTypes = {
+    tagline: PropTypes.string.isRequired
+
+}
+// This object is for dictating the type your prop should be. It's good practice to do this. 
+// It gives you a clear and concise warning in the console if the wrong prop type is passed.
+// will only appear in dev mode though. 
+// As this is a stateless component, we add the header propytpes object after the header function. 
+
 export default Header; 
 
 // Here you can have a stateless Component. If your component just renders HTML and gets fed in data, there
